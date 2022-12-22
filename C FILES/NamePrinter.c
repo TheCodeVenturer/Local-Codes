@@ -1,3 +1,7 @@
+//To Test This Code move to This https://onecompiler.com/c/3xvrmv9j5
+
+
+
 #include<stdio.h>
 
 #include<string.h>
