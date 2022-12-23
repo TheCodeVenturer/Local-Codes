@@ -2,11 +2,12 @@
 using namespace std;
 #define pairs pair<int, int>
 #define vpii vector<pairs>
+#define Graph vector<vpii>
 #define vi vector<int>
 class solution
 {
 private:
-    void dfs(int node, vpii adj[], int vis[], vi &ls)
+    void dfs(int node, Graph adj, int vis[], vi &ls)
     {
         vis[node] = 1;
         ls.push_back(node);
@@ -18,7 +19,7 @@ private:
             }
         }
     }
-    void findDisjointPaths(vpii adj[], int src, int dest, vector<vi> &paths, int vis[])
+    void findDisjointPaths(Graph adj, int src, int dest, vector<vi> &paths, int vis[])
     {
         if (src == dest)
         {
@@ -37,11 +38,11 @@ private:
                 paths.insert(paths.end(), subPaths.begin(), subPaths.end());
             }
         }
-        vis[src]=0;
+        vis[src] = 0;
     }
 
 public:
-    vi dfsOfGraph(int v, vpii adj[])
+    vi dfsOfGraph(int v, Graph adj)
     {
         int vis[v] = {0};
         int start = 0;
@@ -49,7 +50,7 @@ public:
         dfs(start, adj, vis, ls);
         return ls;
     }
-    vi bfsOfGraph(int v, vpii adj[])
+    vi bfsOfGraph(int v, Graph adj)
     {
         int vis[v] = {0};
         queue<int> q;
@@ -72,7 +73,7 @@ public:
         }
         return bfs;
     }
-    vi dijkstra(int v, vpii adj[], int start)
+    vi dijkstra(int v, Graph adj, int start)
     {
         set<pairs> set1;
         vi dist(v, 1e9);
@@ -99,14 +100,14 @@ public:
         }
         return dist;
     }
-    vi shortestPath(int v, vpii adj[], int dest)
+    vi shortestPath(int v, Graph adj, int dest,int src=0)
     {
         vi dist(v, 1e9), parent(v);
         for (int i = 0; i < v; i++)
             parent[i] = i;
         set<pairs> set1;
-        set1.insert({0, 0});
-        dist[0] = 0;
+        set1.insert({0, src});
+        dist[src] = 0;
         while (!set1.empty())
         {
             auto it = *(set1.begin());
@@ -140,12 +141,43 @@ public:
         reverse(path.begin(), path.end());
         return path;
     }
-    vector<vi> allDisjointPaths(int v, vpii adj[], int src, int dest)
+    vector<vi> allPaths(int v, Graph adj, int src, int dest)
     {
         int vis[v] = {0};
         vector<vi> disjointPaths;
         findDisjointPaths(adj, src, dest, disjointPaths, vis);
         return disjointPaths;
+    }
+    vector<vi> allDisjointPaths(int v, Graph adj, int src, int dest)
+    {
+        vector<vi>paths;
+        vi pathToDest=shortestPath(v,adj,dest,src);
+        while(pathToDest[0]!=-1){
+            paths.push_back(pathToDest);
+            for(int i=0;i<pathToDest.size()-1;i++)
+            {
+                int edgePoint1 = pathToDest[i];
+                int edgePoint2 = pathToDest[i+1];
+                for(int j=0;j<adj[edgePoint1].size();j++)
+                {
+                    if(adj[edgePoint1][j].first==edgePoint2)
+                    {
+                        adj[edgePoint1].erase(adj[edgePoint1].begin()+i);
+                        break;
+                    }
+                }
+                for(int j=0;j<adj[edgePoint2].size();j++)
+                {
+                    if(adj[edgePoint2][j].first==edgePoint1)
+                    {
+                        adj[edgePoint2].erase(adj[edgePoint2].begin()+i);
+                        break;
+                    }
+                }
+            }
+            pathToDest=shortestPath(v,adj,dest,src);
+        }
+        return paths;
     }
 };
 int main()
@@ -153,7 +185,7 @@ int main()
     int n, m;
     cout << "Enter No.of Nodes and Edges\n";
     cin >> n >> m;
-    vpii adj[n + 1];
+    Graph adj(n+1);
     cout << "Enter " << m << " edges with weight\n";
     for (int i = 0; i < m; i++)
     {
@@ -185,14 +217,4 @@ int main()
             cout << vertex << " ";
         cout << endl;
     }
-    // 8 9
-    // 0 1 1
-    // 0 2 1
-    // 0 3 1
-    // 1 4 1
-    // 2 5 1
-    // 3 6 1
-    // 4 7 1
-    // 5 7 1
-    // 6 7 1
 }
