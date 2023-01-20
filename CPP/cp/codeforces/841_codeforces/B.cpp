@@ -11,8 +11,7 @@ int main()
     {
         ll n;
         cin>>n;
-        ll sol = 2022*(((n*(n+1))%mod)*(4*n - 1)%mod)/6;
-        cout<<sol%mod<<endl;
+        cout<<n-1<<endl;
     }
     return 0;
 }

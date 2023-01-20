@@ -1,11 +1,5 @@
 #include <iostream>
 using namespace std;
-void swap(int &a,int &b)
-{
-    int temp=a;
-    a=b;
-    b=temp;
-}
 int partition(int *arr, int l, int u)
 {
     int key=arr[u];
@@ -33,8 +27,12 @@ void quickSort(int *arr, int lower, int upper)
 }
 int main(void)
 {
-    int arr[]={5,6,9,1,3,10,54,12,76,31};
-    quickSort(arr, 0, 9);
-    for (int i = 0; i < 10; i++)
+    int arr[100],i=0,size;
+	cout<<"Enter Size:";
+	cin>>size;
+	for (int i = 0; i < size; i++)
+        cin>> arr[i] ;
+    quickSort(arr, 0, size-1);
+    for (int i = 0; i < size; i++)
         cout << arr[i] << " ";
 }
