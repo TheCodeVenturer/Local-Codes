@@ -10,3 +10,4 @@ Immediate Next Smaller Element| --- | [Link](https://practice.geeksforgeeks.org/
 Number Of NGEs to right | --- | [Link](https://practice.geeksforgeeks.org/problems/number-of-nges-to-the-right/) | [Link](./NumberOfNGEsToRight.cpp)
 Trapping RainWater | [Link](https://leetcode.com/problems/trapping-rain-water/)|[Link](https://practice.geeksforgeeks.org/problems/trapping-rain-water-1587115621/) | [link](./trappingRainWater.cpp)
 Length of Longest SubString|[Link](https://leetcode.com/problems/longest-substring-without-repeating-characters/)|[Link](https://practice.geeksforgeeks.org/problems/length-of-the-longest-substring3036/)|[Link](./lengthOfLongestSubString.cpp)
+Sum of Sub Array Minimum|[Link](https://leetcode.com/problems/sum-of-subarray-minimums/)|[Link](https://practice.geeksforgeeks.org/problems/sum-of-subarray-minimum/)|[Link](./sumOfSubarrayMinimum.cpp)
