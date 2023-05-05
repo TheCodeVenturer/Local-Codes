@@ -11,37 +11,22 @@ class Solution {
     int sumSubarrayMins(int N, vector<int> &arr) {
         // code here
         stack<int>st;
-        vector<pair<int,int>> boundary(N);
-        for(int i=0;i<N;i++)
-        {
-            boundary[i].first=i+1;
-            boundary[i].second = N-i;
-        }
-        for(int i=0;i<N;i++)
-        {
-            while(!st.empty() && arr[st.top()]>=arr[i])
-            {
-                boundary[st.top()].second=i-st.top();
-                st.pop();
-            }
-            st.push(i);
-        }
-        st = stack<int>();
-        for(int i=N-1;i>=0;i--)
+        int size = arr.size();
+        arr.insert(arr.begin(),0);
+        vector<long long> result(size,0);
+        st.push(0);
+        for(int i=1;i<size;i++)
         {
             while(!st.empty() && arr[st.top()]>arr[i])
-            {
-                boundary[st.top()].first=st.top()-i;
                 st.pop();
-            }
+            int j = st.top();
+            result[i] = result[j] + arr[i]*(i-j);
             st.push(i);
         }
-        int ans=0;
-        for(int i=0;i<N;i++){
-             ans+=arr[i]*((long long)(boundary[i].first)*(boundary[i].second))%mod;
-            ans%=mod;
-        }
-        return ans;
+        long long mini=0;
+        for(long long &num:result)
+            mini = (mini + num)%mod;
+        return mini%mod;
     }
 };
 
