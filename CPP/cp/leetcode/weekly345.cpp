@@ -58,6 +58,5 @@ int main()
 {
     Solution obj;
     vector<int> arr = {1, 0};
-    cout << obj.maxMoves(arr);
     return 0;
 }
